@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Habit Tracker",
+    "slug": "rb-habit-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "rbhabittracker",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#10B981"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

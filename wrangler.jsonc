@@ -1,0 +1,6 @@
+{
+	// Stub config — exists only so the template pipeline accepts this as a valid
+	// template. Expo runs via Metro in the sandbox and never reads this file.
+	"name": "rb-habit-tracker",
+	"compatibility_date": "2025-06-01"
+}
