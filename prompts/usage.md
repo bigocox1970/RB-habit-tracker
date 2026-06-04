@@ -91,17 +91,25 @@ const styles = StyleSheet.create({
   ```
 - NEVER `require()` an image, font, or other asset file that you have not actually created in the project. Metro fails the whole app with "Unable to resolve module" / "None of these files exist". There are NO bundled images, icons, or splash assets — use remote `{ uri }` images instead.
 
-## Icons (CRITICAL — `@expo/vector-icons` renders as BLANK BOXES on web, do not use it)
-- The preview is react-native-web. `@expo/vector-icons` (Ionicons, MaterialIcons, etc.) load an icon FONT whose glyphs do NOT render in this web preview — they show as empty/blank squares even though the app compiles. DO NOT use `@expo/vector-icons` for any icon (tab bars, buttons, cards).
-- ALWAYS use **emoji** inside a `<Text>` for icons — they render reliably on web, iOS and Android with zero setup:
-  ```tsx
-  <Text style={{ fontSize: 22 }}>💧</Text>   // water   🔥 streak  📅 history  ⚙️ settings  📊 stats  ✅ done  ➕ add
-  ```
-- For tab bar icons, return an emoji `<Text>` from `tabBarIcon`:
-  ```tsx
-  <Tabs.Screen name="index" options={{ tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>💧</Text> }} />
-  ```
-- If you need crisp vector icons later, inline an SVG with `react-native-svg` — but emoji is the default and always works.
+## Icons — two options with different tradeoffs
+
+**Option A (default): Emoji icons** — work on both the in-browser web preview AND native Expo Go. Zero setup.
+```tsx
+<Text style={{ fontSize: 22 }}>💧</Text>   // water   🔥 streak  📅 history  ⚙️ settings  📊 stats  ✅ done  ➕ add
+```
+For tab bars:
+```tsx
+<Tabs.Screen name="index" options={{ tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>💧</Text> }} />
+```
+
+**Option B: `@expo/vector-icons`** (Ionicons, MaterialIcons, Feather, etc.) — crisp, polished icons that work on native iOS/Android. **IMPORTANT tradeoff:** the icon fonts do NOT load in the in-browser web preview — they appear as blank boxes there. They look great on a real device via Expo Go. If the user chooses this option, tell them: "Vector icons won't show in the browser preview — use the Expo Go app on your phone to see them correctly."
+```tsx
+import { Ionicons } from '@expo/vector-icons';
+<Ionicons name="water-outline" size={22} color={Colors.primary} />
+```
+`@expo/vector-icons` is already included with Expo — no extra install needed.
+
+**When asked about icons**, explain both options and let the user decide. Default to emoji unless they specifically want vector icons or ask for a more polished native look.
 
 ## Adding other dependencies
 - If you import a package that is NOT already in package.json, you MUST install it FIRST in the same step, before or together with the code that imports it. Otherwise the Metro bundler fails with "Unable to resolve module".
