@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { CheckCircle2, Circle, PlusCircle } from 'lucide-react-native';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
 import { Habit } from '@/types/habit';
@@ -36,17 +36,13 @@ export default function TodayScreen() {
         onPress={() => toggleHabit(item.id, today)}
         activeOpacity={0.7}
       >
-        <Ionicons
-          name={done ? 'checkmark-circle' : 'ellipse-outline'}
-          size={28}
-          color={done ? Colors.primary : Colors.inactive}
-          style={{ marginRight: 14 }}
-        />
+        {done
+          ? <CheckCircle2 size={28} color={Colors.primary} style={{ marginRight: 14 }} />
+          : <Circle size={28} color={Colors.inactive} style={{ marginRight: 14 }} />
+        }
         <Text style={styles.habitEmoji}>{item.emoji}</Text>
         <Text style={[styles.habitName, done && styles.habitNameDone]}>{item.name}</Text>
-        {done && (
-          <Text style={styles.doneBadge}>Done</Text>
-        )}
+        {done && <Text style={styles.doneBadge}>Done</Text>}
       </TouchableOpacity>
     );
   };
@@ -75,7 +71,7 @@ export default function TodayScreen() {
 
       {habits.length === 0 ? (
         <View style={styles.empty}>
-          <Ionicons name="add-circle-outline" size={64} color={Colors.primaryLight} />
+          <PlusCircle size={64} color={Colors.primaryLight} />
           <Text style={styles.emptyTitle}>No habits yet</Text>
           <Text style={styles.emptyHint}>Tap the Habits tab to add your first one</Text>
         </View>
@@ -109,52 +105,30 @@ const styles = StyleSheet.create({
   dateLabel: { fontSize: 13, color: Colors.textSecondary, fontWeight: '500', marginBottom: 4 },
   motivational: { fontSize: 17, fontWeight: '700', color: Colors.textPrimary },
   pctBadge: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 56, height: 56, borderRadius: 28,
     backgroundColor: Colors.primaryLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: Colors.primary,
+    alignItems: 'center', justifyContent: 'center',
+    borderWidth: 2, borderColor: Colors.primary,
   },
   pctText: { fontSize: 16, fontWeight: '800', color: Colors.primaryDark },
-  progressBarWrap: {
-    height: 4,
-    backgroundColor: Colors.primaryLight,
-  },
-  progressBarFill: {
-    height: 4,
-    backgroundColor: Colors.primary,
-  },
+  progressBarWrap: { height: 4, backgroundColor: Colors.primaryLight },
+  progressBarFill: { height: 4, backgroundColor: Colors.primary },
   list: { padding: 16 },
   habitRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surface,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    flexDirection: 'row', alignItems: 'center',
+    backgroundColor: Colors.surface, borderRadius: 14,
+    padding: 16, borderWidth: 1, borderColor: Colors.border,
   },
-  habitRowDone: {
-    backgroundColor: Colors.primaryLight,
-    borderColor: Colors.primary,
-  },
+  habitRowDone: { backgroundColor: Colors.primaryLight, borderColor: Colors.primary },
   habitEmoji: { fontSize: 24, marginRight: 12 },
   habitName: { fontSize: 16, fontWeight: '600', color: Colors.textPrimary, flex: 1 },
   habitNameDone: { color: Colors.primaryDark },
   doneBadge: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: Colors.primary,
-    backgroundColor: '#fff',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 10,
-    overflow: 'hidden',
+    fontSize: 11, fontWeight: '700', color: Colors.primary,
+    backgroundColor: '#fff', paddingHorizontal: 8, paddingVertical: 3,
+    borderRadius: 10, overflow: 'hidden',
   },
-  empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
-  emptyTitle: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary, marginTop: 16, marginBottom: 8 },
+  empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40, gap: 16 },
+  emptyTitle: { fontSize: 20, fontWeight: '800', color: Colors.textPrimary },
   emptyHint: { fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 },
 });

@@ -91,25 +91,26 @@ const styles = StyleSheet.create({
   ```
 - NEVER `require()` an image, font, or other asset file that you have not actually created in the project. Metro fails the whole app with "Unable to resolve module" / "None of these files exist". There are NO bundled images, icons, or splash assets — use remote `{ uri }` images instead.
 
-## Icons — two options with different tradeoffs
+## Icons — use lucide-react-native (works everywhere)
 
-**Option A (default): Emoji icons** — work on both the in-browser web preview AND native Expo Go. Zero setup.
-```tsx
-<Text style={{ fontSize: 22 }}>💧</Text>   // water   🔥 streak  📅 history  ⚙️ settings  📊 stats  ✅ done  ➕ add
+**Default: `lucide-react-native` + `react-native-svg`** — SVG-based, renders correctly in BOTH the in-browser web preview AND native Expo Go. Looks crisp and modern on all platforms.
+
+Install (both required):
 ```
-For tab bars:
-```tsx
-<Tabs.Screen name="index" options={{ tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>💧</Text> }} />
+bun add react-native-svg lucide-react-native
 ```
 
-**Option B: `@expo/vector-icons`** (Ionicons, MaterialIcons, Feather, etc.) — crisp, polished icons that work on native iOS/Android. **IMPORTANT tradeoff:** the icon fonts do NOT load in the in-browser web preview — they appear as blank boxes there. They look great on a real device via Expo Go. If the user chooses this option, tell them: "Vector icons won't show in the browser preview — use the Expo Go app on your phone to see them correctly."
+Usage:
 ```tsx
-import { Ionicons } from '@expo/vector-icons';
-<Ionicons name="water-outline" size={22} color={Colors.primary} />
+import { Flame, CheckCircle2, Settings, List } from 'lucide-react-native';
+<Flame size={24} color={Colors.primary} />
+// Tab bar:
+<Tabs.Screen name="index" options={{ tabBarIcon: ({ color, size }) => <CheckCircle2 size={size} color={color} /> }} />
 ```
-`@expo/vector-icons` is already included with Expo — no extra install needed.
 
-**When asked about icons**, explain both options and let the user decide. Default to emoji unless they specifically want vector icons or ask for a more polished native look.
+**Avoid `@expo/vector-icons`** (Ionicons, MaterialIcons etc.) — font-based, appears as blank boxes in the web preview. Only use if the user explicitly says they don't care about the web preview.
+
+**Avoid emoji for UI icons** — looks unprofessional in tab bars and buttons. Emoji is fine for habit/category pickers where the user chooses their own emoji.
 
 ## Adding other dependencies
 - If you import a package that is NOT already in package.json, you MUST install it FIRST in the same step, before or together with the code that imports it. Otherwise the Metro bundler fails with "Unable to resolve module".

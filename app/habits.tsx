@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {
-  View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native';
+import { Plus, Trash2, List } from 'lucide-react-native';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
 import { Habit } from '@/types/habit';
@@ -63,14 +61,12 @@ export default function HabitsScreen() {
           onPress={handleAdd}
           disabled={!name.trim()}
         >
-          <Ionicons name="add" size={20} color="#fff" style={{ marginRight: 6 }} />
+          <Plus size={20} color="#fff" style={{ marginRight: 6 }} />
           <Text style={styles.addBtnText}>Add Habit</Text>
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.sectionHeader}>
-        MY HABITS {habits.length > 0 && `(${habits.length})`}
-      </Text>
+      <Text style={styles.sectionHeader}>MY HABITS {habits.length > 0 && `(${habits.length})`}</Text>
 
       <FlatList
         data={habits}
@@ -81,17 +77,14 @@ export default function HabitsScreen() {
               <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
             </View>
             <Text style={styles.habitName}>{item.name}</Text>
-            <TouchableOpacity
-              onPress={() => handleDelete(item)}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-            >
-              <Ionicons name="trash-outline" size={20} color={Colors.textSecondary} />
+            <TouchableOpacity onPress={() => handleDelete(item)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Trash2 size={18} color={Colors.textSecondary} />
             </TouchableOpacity>
           </View>
         )}
         ListEmptyComponent={
           <View style={styles.empty}>
-            <Ionicons name="list-outline" size={48} color={Colors.primaryLight} />
+            <List size={48} color={Colors.primaryLight} />
             <Text style={styles.emptyText}>No habits yet — add one above</Text>
           </View>
         }
@@ -105,23 +98,14 @@ export default function HabitsScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   addCard: {
-    backgroundColor: Colors.surface,
-    margin: 16,
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors.surface, margin: 16, borderRadius: 16,
+    padding: 16, borderWidth: 1, borderColor: Colors.border,
   },
   addTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary, marginBottom: 12 },
   inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    backgroundColor: Colors.background,
-    marginBottom: 12,
+    flexDirection: 'row', alignItems: 'center',
+    borderWidth: 1, borderColor: Colors.border, borderRadius: 12,
+    paddingHorizontal: 12, backgroundColor: Colors.background, marginBottom: 12,
   },
   selectedEmoji: { fontSize: 22, marginRight: 8 },
   input: { flex: 1, paddingVertical: 12, fontSize: 15, color: Colors.textPrimary },
@@ -129,15 +113,13 @@ const styles = StyleSheet.create({
   emojiBtn: {
     width: 42, height: 42, borderRadius: 10,
     alignItems: 'center', justifyContent: 'center',
-    backgroundColor: Colors.background,
-    borderWidth: 1.5, borderColor: 'transparent',
+    backgroundColor: Colors.background, borderWidth: 1.5, borderColor: 'transparent',
   },
   emojiBtnSelected: { backgroundColor: Colors.primaryLight, borderColor: Colors.primary },
   emojiText: { fontSize: 22 },
   addBtn: {
-    backgroundColor: Colors.primary, borderRadius: 12,
-    paddingVertical: 13, flexDirection: 'row',
-    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: Colors.primary, borderRadius: 12, paddingVertical: 13,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
   },
   addBtnDisabled: { backgroundColor: Colors.inactive },
   addBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
