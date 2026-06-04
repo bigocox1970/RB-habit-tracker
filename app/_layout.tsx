@@ -1,7 +1,7 @@
 import '@/lib/crypto-polyfill';
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { CheckCircle, List, Flame, Settings } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { HabitProvider } from '@/context/HabitContext';
 
 export default function RootLayout() {
@@ -21,28 +21,28 @@ export default function RootLayout() {
           name="index"
           options={{
             title: 'Today',
-            tabBarIcon: ({ color, size }) => <CheckCircle size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => <Ionicons name="checkmark-circle-outline" size={size} color={color} />,
           }}
         />
         <Tabs.Screen
           name="habits"
           options={{
             title: 'Habits',
-            tabBarIcon: ({ color, size }) => <List size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => <Ionicons name="list-outline" size={size} color={color} />,
           }}
         />
         <Tabs.Screen
           name="streaks"
           options={{
             title: 'Streaks',
-            tabBarIcon: ({ color, size }) => <Flame size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => <Ionicons name="flame-outline" size={size} color={color} />,
           }}
         />
         <Tabs.Screen
           name="settings"
           options={{
             title: 'Settings',
-            tabBarIcon: ({ color, size }) => <Settings size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" size={size} color={color} />,
           }}
         />
       </Tabs>

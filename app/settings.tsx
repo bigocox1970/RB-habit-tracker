@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { List, CheckCircle2, Flame, Trash2 } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
@@ -29,24 +29,24 @@ export default function SettingsScreen() {
         <Text style={styles.cardTitle}>Your progress</Text>
         <View style={styles.statsGrid}>
           <View style={styles.statBox}>
-            <List size={22} color={Colors.primary} />
+            <Ionicons name="list" size={22} color={Colors.primary} />
             <Text style={styles.statValue}>{habits.length}</Text>
             <Text style={styles.statLabel}>Habits</Text>
           </View>
           <View style={[styles.statBox, styles.statBoxBorder]}>
-            <CheckCircle2 size={22} color={Colors.primary} />
+            <Ionicons name="checkmark-circle" size={22} color={Colors.primary} />
             <Text style={styles.statValue}>{logs.length}</Text>
             <Text style={styles.statLabel}>Completions</Text>
           </View>
           <View style={styles.statBox}>
-            <Flame size={22} color={Colors.primary} />
+            <Ionicons name="flame" size={22} color={Colors.primary} />
             <Text style={styles.statValue}>{best}</Text>
             <Text style={styles.statLabel}>Best streak</Text>
           </View>
         </View>
         {activeStreaks > 0 && (
           <View style={styles.activeBanner}>
-            <Flame size={16} color={Colors.primaryDark} />
+            <Ionicons name="flame" size={16} color={Colors.primaryDark} />
             <Text style={styles.activeBannerText}>
               {activeStreaks} active streak{activeStreaks > 1 ? 's' : ''} — keep going!
             </Text>
@@ -56,7 +56,7 @@ export default function SettingsScreen() {
 
       <Text style={styles.sectionLabel}>DATA</Text>
       <TouchableOpacity style={styles.dangerRow} onPress={handleReset}>
-        <Trash2 size={20} color={Colors.error} style={{ marginRight: 12 }} />
+        <Ionicons name="trash-outline" size={20} color={Colors.error} style={{ marginRight: 12 }} />
         <View>
           <Text style={styles.dangerRowText}>Reset all data</Text>
           <Text style={styles.dangerRowHint}>Deletes habits & logs permanently</Text>

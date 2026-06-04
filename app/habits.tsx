@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native';
-import { Plus, Trash2, List } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
 import { Habit } from '@/types/habit';
@@ -61,7 +61,7 @@ export default function HabitsScreen() {
           onPress={handleAdd}
           disabled={!name.trim()}
         >
-          <Plus size={20} color="#fff" style={{ marginRight: 6 }} />
+          <Ionicons name="add" size={20} color="#fff" style={{ marginRight: 6 }} />
           <Text style={styles.addBtnText}>Add Habit</Text>
         </TouchableOpacity>
       </View>
@@ -78,13 +78,13 @@ export default function HabitsScreen() {
             </View>
             <Text style={styles.habitName}>{item.name}</Text>
             <TouchableOpacity onPress={() => handleDelete(item)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-              <Trash2 size={18} color={Colors.textSecondary} />
+              <Ionicons name="trash-outline" size={20} color={Colors.textSecondary} />
             </TouchableOpacity>
           </View>
         )}
         ListEmptyComponent={
           <View style={styles.empty}>
-            <List size={48} color={Colors.primaryLight} />
+            <Ionicons name="list-outline" size={48} color={Colors.primaryLight} />
             <Text style={styles.emptyText}>No habits yet — add one above</Text>
           </View>
         }

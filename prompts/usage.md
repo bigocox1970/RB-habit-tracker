@@ -91,26 +91,21 @@ const styles = StyleSheet.create({
   ```
 - NEVER `require()` an image, font, or other asset file that you have not actually created in the project. Metro fails the whole app with "Unable to resolve module" / "None of these files exist". There are NO bundled images, icons, or splash assets — use remote `{ uri }` images instead.
 
-## Icons — use lucide-react-native (works everywhere)
+## Icons
 
-**Default: `lucide-react-native` + `react-native-svg`** — SVG-based, renders correctly in BOTH the in-browser web preview AND native Expo Go. Looks crisp and modern on all platforms.
-
-Install (both required):
-```
-bun add react-native-svg lucide-react-native
-```
-
-Usage:
+**Use `@expo/vector-icons`** (Ionicons, MaterialIcons, Feather etc.) — pre-bundled with Expo, no install needed. Looks great on native iOS/Android via Expo Go.
 ```tsx
-import { Flame, CheckCircle2, Settings, List } from 'lucide-react-native';
-<Flame size={24} color={Colors.primary} />
+import { Ionicons } from '@expo/vector-icons';
+<Ionicons name="flame-outline" size={24} color={Colors.primary} />
 // Tab bar:
-<Tabs.Screen name="index" options={{ tabBarIcon: ({ color, size }) => <CheckCircle2 size={size} color={color} /> }} />
+<Tabs.Screen name="index" options={{ tabBarIcon: ({ color, size }) => <Ionicons name="checkmark-circle-outline" size={size} color={color} /> }} />
 ```
 
-**Avoid `@expo/vector-icons`** (Ionicons, MaterialIcons etc.) — font-based, appears as blank boxes in the web preview. Only use if the user explicitly says they don't care about the web preview.
+**Known limitation:** `@expo/vector-icons` uses icon fonts which do NOT load in the in-browser web preview — icons appear as blank boxes there. They render correctly on a real device via Expo Go. This is a Metro/react-native-web limitation and cannot be worked around without a full SVG icon library, which breaks the Metro bundler in this environment. Tell users: "Icons look blank in the browser preview — that's expected. Use Expo Go on your phone to see them correctly."
 
-**Avoid emoji for UI icons** — looks unprofessional in tab bars and buttons. Emoji is fine for habit/category pickers where the user chooses their own emoji.
+**Do NOT install `lucide-react-native` or `react-native-svg`** — these break the Metro bundler in this environment (blank screen).
+
+**Emoji** is acceptable for user-chosen content (habit icons, category pickers) but avoid emoji for UI chrome (tab bars, buttons, navigation) — use `@expo/vector-icons` there instead.
 
 ## Adding other dependencies
 - If you import a package that is NOT already in package.json, you MUST install it FIRST in the same step, before or together with the code that imports it. Otherwise the Metro bundler fails with "Unable to resolve module".

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { CheckCircle2, Circle, PlusCircle } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
 import { Habit } from '@/types/habit';
@@ -36,10 +36,12 @@ export default function TodayScreen() {
         onPress={() => toggleHabit(item.id, today)}
         activeOpacity={0.7}
       >
-        {done
-          ? <CheckCircle2 size={28} color={Colors.primary} style={{ marginRight: 14 }} />
-          : <Circle size={28} color={Colors.inactive} style={{ marginRight: 14 }} />
-        }
+        <Ionicons
+          name={done ? 'checkmark-circle' : 'ellipse-outline'}
+          size={28}
+          color={done ? Colors.primary : Colors.inactive}
+          style={{ marginRight: 14 }}
+        />
         <Text style={styles.habitEmoji}>{item.emoji}</Text>
         <Text style={[styles.habitName, done && styles.habitNameDone]}>{item.name}</Text>
         {done && <Text style={styles.doneBadge}>Done</Text>}
@@ -71,7 +73,7 @@ export default function TodayScreen() {
 
       {habits.length === 0 ? (
         <View style={styles.empty}>
-          <PlusCircle size={64} color={Colors.primaryLight} />
+          <Ionicons name="add-circle-outline" size={64} color={Colors.primaryLight} />
           <Text style={styles.emptyTitle}>No habits yet</Text>
           <Text style={styles.emptyHint}>Tap the Habits tab to add your first one</Text>
         </View>
@@ -91,23 +93,17 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.surface,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    backgroundColor: Colors.surface, paddingHorizontal: 20,
+    paddingTop: 20, paddingBottom: 16,
+    borderBottomWidth: 1, borderBottomColor: Colors.border,
   },
   headerLeft: { flex: 1, paddingRight: 16 },
   dateLabel: { fontSize: 13, color: Colors.textSecondary, fontWeight: '500', marginBottom: 4 },
   motivational: { fontSize: 17, fontWeight: '700', color: Colors.textPrimary },
   pctBadge: {
     width: 56, height: 56, borderRadius: 28,
-    backgroundColor: Colors.primaryLight,
-    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: Colors.primaryLight, alignItems: 'center', justifyContent: 'center',
     borderWidth: 2, borderColor: Colors.primary,
   },
   pctText: { fontSize: 16, fontWeight: '800', color: Colors.primaryDark },

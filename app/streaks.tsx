@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { Flame, Check } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useHabits } from '@/hooks/useHabits';
 import { Colors } from '@/constants/Colors';
 import { Habit } from '@/types/habit';
@@ -44,11 +44,10 @@ export default function StreaksScreen() {
             <Text style={styles.longestText}>Best: {longest} day{longest !== 1 ? 's' : ''}</Text>
           </View>
           <View style={[styles.streakBadge, isActive && styles.streakBadgeActive]}>
-            <Flame size={18} color={isActive ? Colors.primary : Colors.inactive} />
+            <Ionicons name="flame" size={18} color={isActive ? Colors.primary : Colors.inactive} />
             <Text style={[styles.streakCount, isActive && styles.streakCountActive]}>{streak}</Text>
           </View>
         </View>
-
         <View style={styles.weekRow}>
           {days.map((d, i) => {
             const done = isCompleted(item.id, d);
@@ -56,7 +55,7 @@ export default function StreaksScreen() {
             return (
               <View key={d} style={styles.dayCell}>
                 <View style={[styles.dot, done ? styles.dotDone : styles.dotEmpty, isToday && !done && styles.dotToday]}>
-                  {done && <Check size={14} color="#fff" strokeWidth={3} />}
+                  {done && <Ionicons name="checkmark" size={14} color="#fff" />}
                 </View>
                 <Text style={[styles.dayLabel, isToday && styles.dayLabelToday]}>{dayLabel(d)}</Text>
               </View>
@@ -71,7 +70,7 @@ export default function StreaksScreen() {
     <View style={styles.container}>
       {habits.length === 0 ? (
         <View style={styles.empty}>
-          <Flame size={64} color={Colors.primaryLight} />
+          <Ionicons name="flame-outline" size={64} color={Colors.primaryLight} />
           <Text style={styles.emptyTitle}>No streaks yet</Text>
           <Text style={styles.emptyHint}>Check off habits daily to build streaks</Text>
         </View>
