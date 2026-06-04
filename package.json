@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "expo start --web --port ${PORT:-8081} --host lan",
     "start": "expo start --port ${PORT:-8081} --host lan",
-    "build": "expo export --platform web",
-    "prepare": "bun .bootstrap.js || true"
+    "build": "expo export --platform web"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
